@@ -6,7 +6,7 @@ def seleccionar_archivo():
     # Abrir el cuadro de diálogo para seleccionar un archivo
     ruta_archivo = filedialog.askopenfilename(
         title="Seleccione un archivo",
-        filetypes=(("Archivos de imagen", "*.jpg;*.png;*.gif;*.jpeg;"), ("Todos los archivos", "*.*"))
+        filetypes=(("Archivos de imagen", "*.jpg;*.png;*.gif;*.jpeg;*.mp4;"), ("Todos los archivos", "*.*"))
     )
 
     if ruta_archivo:
@@ -16,8 +16,7 @@ def seleccionar_archivo():
         return None
 
 headers = {
-        "Authorization":"Server 31aaa395-22f5-4528-9406-38dc0e05d21e:gQmpSd5dr8WS1hi7GsufY6lBceII5ZYK7b8Q"
-    }
+        "Authorization":"Server 31aaa395-22f5-4528-9406-38dc0e05d21e:gQmpSd5dr8WS1hi7GsufY6lBceII5ZYK7b8Q","use-compression": "false"}
 url = "https://indev.comty.app/api/upload/file"
 ventana = tk.Tk()
 ventana.withdraw()  # Ocultar la ventana principal de Tkinter
@@ -30,7 +29,6 @@ with open(seleccionar_archivo(), "rb") as file:
 
     # Realizar la petición POST
     response = requests.post(url, files=files, headers=headers)
-
     # Verificar si la petición fue exitosa (código 200)
     if response.status_code == 200:
         # Convertir la respuesta en JSON
