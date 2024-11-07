@@ -1,13 +1,12 @@
 import requests
 import tkinter as tk
 from tkinter import filedialog
-
+import os
 uploadFileUrl = "https://indev.comty.app/api/upload/file"
 headers = {
-    "Authorization":"Server 31aaa395-22f5-4528-9406-38dc0e05d21e:gQmpSd5dr8WS1hi7GsufY6lBceII5ZYK7b8Q",
-    "use-compression": "false",
+    "Authorization":os.environ['COMTY_API']
 }
-
+#"use-compression": "false",
 def upload_attachment():
     ventana = tk.Tk()
     ventana.withdraw()
