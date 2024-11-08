@@ -23,7 +23,14 @@ def json_variable_entorno():
             return access_id+':'+secret_token
 
 def crear_variable_entorno():
-    perm = input("¿Desea crear una variable persistente?(si,no)")
+    variable = "COMTY_API"
+    valor = json_variable_entorno()
+    os.system(f'setx {variable} "{valor}"')
+    print("Se va a cerrar el programa...")
+    time.sleep(3)
+    exit(0)
+
+"""perm = input("¿Desea crear una variable persistente?(si,no)")
     match perm:
         case "si":
             variable = "COMTY_API"
@@ -35,15 +42,17 @@ def crear_variable_entorno():
         case "no":
             os.environ["COMTY_API"] = json_variable_entorno()
         case _:
-            print("Introduzca una respuesta válida")
+            print("Introduzca una respuesta válida")"""
 
 def get_variable_entorno():
     if os.getenv("COMTY_API"):
         comty_api = os.getenv("COMTY_API")
         print(comty_api)
+        return True
     elif "COMTY_API" in os.environ:
         comty_api = os.environ["COMTY_API"]
         print(comty_api)
+        return True
     else:
         print("No se encuentra el COMTY_API")
-crear_variable_entorno()
+        return False

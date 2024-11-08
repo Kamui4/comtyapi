@@ -5,6 +5,7 @@ import os
 uploadFileUrl = "https://indev.comty.app/api/upload/file"
 headers = {
     "Authorization":os.environ['COMTY_API']
+    ,"use-compression": "false",
 }
 #"use-compression": "false",
 def upload_attachment():
