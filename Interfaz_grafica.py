@@ -68,12 +68,18 @@ def upload_attachment():
             print(f"Error al subir el archivo: {response.status_code}")
             return None
 
-def activar_boton(data):
+def activar_boton():
     url = "https://indev.comty.app/api/posts/new"
     #attachmentInput = attachment_entry.get().lower()  # Leer y normalizar el texto de attachment_entry
     messageInput = message_entry.get()
-    data['message'] = messageInput
     try:
+        data = {
+            "message": messageInput,
+            "attachments": [
+                temporal["attachment"]
+            ]
+        }
+
         response = requests.post(url, json=data, headers=headers)
         if response.status_code == 200:
             print("Item creado:", response.json())
@@ -85,10 +91,10 @@ def activar_boton(data):
         print(f"Error al realizar la solicitud: {e}")
         return
 
-def image_boton(data):
+def image_boton():
     # Verificar si se desea subir un archivo
     if estado_upload["boton_actual"] == "si":
-        data['attachment'] = [None]
+        data['attachment'] = None
         estado_upload["boton_actual"] = "no"
         boton_upload.config(text=estado_upload["boton_actual"])
         boton_upload.config(background="Red")
@@ -99,14 +105,14 @@ def image_boton(data):
             errormsg.pack()
             print("Error: No se ha podido subir el archivo.")
 
-        data['attachment'] = [attachmentResult]
+        temporal['attachment'] = attachmentResult
         estado_upload["boton_actual"] = "si"
         boton_upload.config(text=estado_upload["boton_actual"])
         boton_upload.config(background="Green")
 
 # Configurar y verificar la variable de entorno
 get_variable_entorno()
-data = {'message':None, 'attachment':None}
+temporal = {'attachment':None}
 #Datos estados iniciales y datos
 attachmentResult = None
 estado_upload = {"boton_actual": "no"}
@@ -128,10 +134,10 @@ if get_variable_entorno() is True:
     message_entry.pack()
 
     # Botón upload
-    boton_upload = tk.Button(root, text=estado_upload["boton_actual"], background="Red", command=lambda:image_boton(data))
+    boton_upload = tk.Button(root, text=estado_upload["boton_actual"], background="Red", command=lambda:image_boton())
     boton_upload.pack()
     # Botón de activación
-    boton = tk.Button(root, text="Subir", command=lambda:activar_boton(data))
+    boton = tk.Button(root, text="Subir", command=lambda:activar_boton())
     boton.pack()
 
     # Botón de salir
