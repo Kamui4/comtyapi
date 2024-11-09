@@ -150,8 +150,8 @@ if get_variable_entorno() is True:
     foto_label.pack()
 
     #Sustituido por botón sino
-    #attachment_entry = tk.Entry(root, font=("Arial", 14),background="#3f4148")
-    #attachment_entry.pack()
+    attachment_entry = tk.Entry(root, font=("Arial", 14),background="#3f4148")
+    attachment_entry.pack()
 
     # Botón sino
     boton_sino = tk.Button(root, text=estado_sino["boton_actual"],background="Red", command=lambda:activar_boton_sino(estado_sino))
