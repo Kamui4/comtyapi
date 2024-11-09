@@ -92,7 +92,7 @@ def activar_boton():
         return
 
 def image_boton():
-    # Verificar si se desea subir un archivo
+    # Verificar si se desea subir un archivoo
     if estado_upload["boton_actual"] == "si":
         data['attachment'] = None
         estado_upload["boton_actual"] = "no"
