@@ -78,8 +78,6 @@ def activar_boton(data):
         if response.status_code == 200:
             print("Item creado:", response.json())
             return
-        elif response.status_code == 500:
-            print("error de googlo")
         else:
             print(f"Error al crear el item: {response.status_code}","\nIbas a publicar: ",response.json())
             return
@@ -90,7 +88,7 @@ def activar_boton(data):
 def image_boton(data):
     # Verificar si se desea subir un archivo
     if estado_upload["boton_actual"] == "si":
-        data['attachment'] = None
+        data['attachment'] = [None]
         estado_upload["boton_actual"] = "no"
         boton_upload.config(text=estado_upload["boton_actual"])
         boton_upload.config(background="Red")
@@ -100,12 +98,8 @@ def image_boton(data):
             errormsg = tk.Label(root, text="Error: No se ha podido subir el archivo.", font=("Arial", 14), fg="Red",background="#1e1f22")
             errormsg.pack()
             print("Error: No se ha podido subir el archivo.")
-        if 'id' in attachmentResult:
-            data['attachment'] = attachmentResult['id']
-        else:
-            print("Error: El archivo no contiene un ID.")
 
-        #data['attachment'] = attachmentResult
+        data['attachment'] = [attachmentResult]
         estado_upload["boton_actual"] = "si"
         boton_upload.config(text=estado_upload["boton_actual"])
         boton_upload.config(background="Green")
