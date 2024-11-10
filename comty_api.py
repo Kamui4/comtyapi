@@ -7,6 +7,7 @@ import requests
 import json
 import os
 import subprocess
+import sys
 import time
 # from tkinter import *
 # Explicit imports to satisfy Flake8
@@ -32,6 +33,12 @@ def on_focus_out(event):
     if message_entry.get("1.0", END).strip() == '':
         message_entry.insert("1.0", placeholder_text)
         message_entry.config(fg='grey')
+def resource_path(relative_path): #sirve para integrar la carpeta images en el .exe
+    try:
+        base_path = sys._MEIPASS
+    except Exception:
+        base_path = os.path.abspath(".")
+    return os.path.join(base_path, relative_path)
 def obtener_texto():
     # Obtiene el texto desde el principio (1.0) hasta el final (END)
     texto = message_entry.get("1.0", END)
@@ -223,7 +230,7 @@ canvas = Canvas(
 canvas.place(x=0, y=0)
 
 button_image_1 = PhotoImage(
-    file="button_1.png")
+    file=resource_path("button_1.png"))
 boton_archivo = Button(
     image=button_image_1,
     borderwidth=0,
@@ -239,7 +246,7 @@ boton_archivo.place(
     height=25.0)
 
 button_image_2 = PhotoImage(
-    file="button_2.png")
+    file=resource_path("button_2.png"))
 boton = Button(
     image=button_image_2,
     borderwidth=0,
@@ -257,7 +264,7 @@ boton.place(
 )
 
 entry_image_1 = PhotoImage(
-    file="Rectangle1.png"
+    file=resource_path("Rectangle1.png")
 )  # "entry_1.png"
 entry_bg_1 = canvas.create_image(
     358.5,  # 358.5
@@ -280,7 +287,7 @@ message_entry.place(
 )
 
 image_image_1 = PhotoImage(
-    file="placeholder.png")
+    file=resource_path("placeholder.png"))
 image_1 = canvas.create_image(
     140.0,
     379.0,
