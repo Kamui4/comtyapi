@@ -67,19 +67,16 @@ def json_variable_entorno():
 
 def crear_variable_entorno():
     variable = "COMTY_API"
-    valor = json_variable_entorno()
+    valor = "Server "+json_variable_entorno()
     os.system(f'setx {variable} "{valor}"')
     print("Se va a cerrar el programa...")
     time.sleep(3)
-    exit(0)
+    sys.exit(0)
 
 def get_variable_entorno():
     if os.getenv("COMTY_API"):
         comty_api = os.getenv("COMTY_API")
         print(comty_api)
-        return True
-    elif "COMTY_API" in os.environ:
-        comty_api = os.environ["COMTY_API"]
         return True
     else:
         print("No se encuentra el COMTY_API")
@@ -187,7 +184,7 @@ attachmentResult = None
 estado_upload = {"boton_actual": "no"}
 if get_variable_entorno() is True:
     headers = {
-        'Authorization': 'Server ' + os.getenv("COMTY_API")
+        'Authorization': os.getenv("COMTY_API")
     }
     window = Tk()
     window.title("Comty API")
