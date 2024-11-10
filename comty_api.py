@@ -7,7 +7,6 @@ import ctypes
 import requests
 import json
 import os
-import time
 import subprocess
 # from tkinter import *
 # Explicit imports to satisfy Flake8
