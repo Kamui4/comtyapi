@@ -186,97 +186,91 @@ attachmentResult = None
 estado_upload = {"boton_actual": "no"}
 if get_variable_entorno() is False:
     crear_variable_entorno()
-else:
-    headers = {
-        'Authorization': os.getenv("COMTY_API")
-    }
-    window = Tk()
-    window.title("Comty API")
-    window.geometry("700x530")
-    window.configure(bg="#232323")
-    # ICONO PLACEHOLDER
-    myappid = 'ddxdxdxdxd'  # string arbitrario
-    ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID(myappid)
-    window.iconbitmap("comty.ico")
 
-    canvas = Canvas(
-        window,
-        bg="#232323",
-        height=700,
-        width=700,
-        bd=0,
-        highlightthickness=0,
-        relief="ridge"
-    )
+headers = {
+    'Authorization': os.getenv("COMTY_API")
+}
+window = Tk()
+window.title("Comty API")
+window.geometry("700x530")
+window.configure(bg="#232323")
+# ICONO PLACEHOLDER
 
-    canvas.place(x=0, y=0)
+canvas = Canvas(
+    window,
+    bg="#232323",
+    height=700,
+    width=700,
+    bd=0,
+    highlightthickness=0,
+    relief="ridge")
 
-    button_image_1 = PhotoImage(
-        file="button_1.png")
-    boton_archivo = Button(
-        image=button_image_1,
-        borderwidth=0,
-        highlightthickness=0,
-        command=lambda: image_boton(),
-        relief="flat",
-        background="#353535",
-        activebackground="#353535"
-    )
-    boton_archivo.place(
-        x=91.0,
-        y=198.0,
-        width=25.0,
-        height=25.0
-    )
+canvas.place(x=0, y=0)
 
-    button_image_2 = PhotoImage(
-        file="button_2.png")
-    boton = Button(
-        image=button_image_2,
-        borderwidth=0,
-        highlightthickness=0,
-        command=lambda: boton_upload(),
-        relief="flat",
-        background="#353535",
-        activebackground="#353535"
-    )
-    boton.place(
-        x=604.0,
-        y=68.0,
-        width=27.0,
-        height=27.0
-    )
+button_image_1 = PhotoImage(
+    file="button_1.png")
+boton_archivo = Button(
+    image=button_image_1,
+    borderwidth=0,
+    highlightthickness=0,
+    command=lambda: image_boton(),
+    relief="flat",
+    background="#353535",
+    activebackground="#353535")
+boton_archivo.place(
+    x=91.0,
+    y=198.0,
+    width=25.0,
+    height=25.0)
 
-    entry_image_1 = PhotoImage(
-        file="Rectangle1.png")  # "entry_1.png"
-    entry_bg_1 = canvas.create_image(
-        358.5,  # 358.5
-        145.5,  # 145.5
-        image=entry_image_1
-    )
+button_image_2 = PhotoImage(
+    file="button_2.png")
+boton = Button(
+    image=button_image_2,
+    borderwidth=0,
+    highlightthickness=0,
+    command=lambda: boton_upload(),
+    relief="flat",
+    background="#353535",
+    activebackground="#353535"
+)
+boton.place(
+    x=604.0,
+    y=68.0,
+    width=27.0,
+    height=27.0
+)
 
-    message_entry = Text(window, height=10, width=40, fg='grey', bg="#353535", bd=0, highlightthickness=0,
-                         font=("Beiruti Regular", 16 * -1))
-    message_entry.insert("1.0", placeholder_text)
+entry_image_1 = PhotoImage(
+    file="Rectangle1.png"
+)  # "entry_1.png"
+entry_bg_1 = canvas.create_image(
+    358.5,  # 358.5
+    145.5,  # 145.5
+    image=entry_image_1
+)
 
-    message_entry.bind("<FocusIn>", on_focus_in)
-    message_entry.bind("<FocusOut>", on_focus_out)
+message_entry = Text(window, height=10, width=40, fg='grey', bg="#353535", bd=0, highlightthickness=0,
+    font=("Beiruti Regular", 16 * -1))
+message_entry.insert("1.0", placeholder_text)
+message_entry.bind("<FocusIn>", on_focus_in)
+message_entry.bind("<FocusOut>", on_focus_out)
 
-    message_entry.place(
+message_entry.place(
 
-        x=123.0,
-        y=68.0,  # 68
-        width=471.0,  # 471
-        height=153.0  # 153
-    )
+    x=123.0,
+    y=68.0,  # 68
+    width=471.0,  # 471
+    height=153.0  # 153
+)
 
-    image_image_1 = PhotoImage(
-        file="placeholder.png")
-    image_1 = canvas.create_image(
-        140.0,
-        379.0,
-        image=image_image_1
-    )
-    window.protocol("WM_DELETE_WINDOW", closing_cbk)  # para terminar el programa cuando se cierra la ventana
-    window.resizable(False, False)
-    window.mainloop()
+image_image_1 = PhotoImage(
+    file="placeholder.png")
+image_1 = canvas.create_image(
+    140.0,
+    379.0,
+    image=image_image_1
+)
+window.protocol("WM_DELETE_WINDOW", closing_cbk)  # para terminar el programa cuando se cierra la ventana
+window.resizable(False, False)
+window.mainloop()
