@@ -12,7 +12,7 @@ import os
 import time
 # from tkinter import *
 # Explicit imports to satisfy Flake8
-from tkinter import Tk, Canvas, Text, Button, PhotoImage, END, Label,filedialog
+from tkinter import Tk, Canvas, Text, Button, PhotoImage, END, Label,filedialog,messagebox
 
 OUTPUT_PATH = Path(__file__).parent
 ASSETS_PATH = OUTPUT_PATH / Path(r"C:\Users\sergi\PycharmProjects\build\assets\frame0")
@@ -39,12 +39,14 @@ def obtener_texto():
     texto = message_entry.get("1.0", END)
     return texto.strip()  # Imprime el texto sin espacios en blanco al final
 #para empaquetar imagenes en exe
+"""
 def resource_path(relative_path): #sirve para integrar la carpeta images en el .exe
     try:
         base_path = sys._MEIPASS
     except Exception:
         base_path = os.path.abspath(".")
     return os.path.join(base_path, relative_path)
+"""
 #FUNCIONES DE LA API
 def json_variable_entorno():
     ventana = Tk()
@@ -82,12 +84,11 @@ def get_variable_entorno():
     else:
         print("No se encuentra el COMTY_API")
         return False
-#ACTUALIZAR IMAGEN
 
 def upload_attachment():
     ventana = Tk()
     ventana.withdraw()
-    uploadFileUrl = "https://indev.comty.app/api/upload/file"
+    upload_file_url = "https://indev.comty.app/api/upload/file"
     filepath = filedialog.askopenfilename(
         title="Seleccione un archivo",
         filetypes=(("Archivos de imagen y video", "*.jpg;*.png;*.gif;*.jpeg;*.mp4;"), ("Todos los archivos", "*.*"))
@@ -98,16 +99,41 @@ def upload_attachment():
 
     with open(filepath, "rb") as file:
         files = {"file": file}
-        response = requests.post(uploadFileUrl, files=files, headers=headers)
+        response = requests.post(upload_file_url, files=files, headers=headers)
 
         if response.status_code == 200:
             data = response.json()
             print("URL del archivo subido:", data["url"])
             print("ID del archivo:", data["id"])
+
+            # Cargar y actualizar la imagen en el widget Canvas
+            update_image(filepath)  # Llama a la función para actualizar la imagen en el Canvas
+
             return data
         else:
             print(f"Error al subir el archivo: {response.status_code}")
+            messagebox.showerror("Error", "No se pudo subir el archivo.")
             return None
+
+#ACTUALIZAR IMAGEN
+def update_image(filepath):
+    """Actualiza `image_1` en el Canvas con la imagen seleccionada."""
+    try:
+        # Cargar y redimensionar la nueva imagen
+        new_image = Image.open(filepath)
+        new_image = new_image.resize((150, 150))  # Ajusta el tamaño según sea necesario
+        new_image_photo = ImageTk.PhotoImage(new_image)
+
+        # Configurar `image_1` con la nueva imagen
+        canvas.itemconfig(image_1, image=new_image_photo)
+
+        # Mantener una referencia a la nueva imagen para evitar que sea eliminada por el recolector de basura
+        canvas.image = new_image_photo
+
+    except Exception as e:
+        print(f"Error al actualizar la imagen: {e}")
+        messagebox.showerror("Error", "No se pudo actualizar la imagen.")
+
 
 def boton_upload():
     url = "https://indev.comty.app/api/posts/new"
@@ -159,7 +185,6 @@ temporal = {'attachment':None}
 #Datos estados iniciales y datos
 attachmentResult = None
 estado_upload = {"boton_actual": "no"}
-uploadFileUrl = "https://indev.comty.app/api/upload/file"
 headers = {
     'Authorization': 'Server ' + os.getenv("COMTY_API")
 }
@@ -169,9 +194,9 @@ if get_variable_entorno() is True:
     window.geometry("700x700")
     window.configure(bg="#232323")
     # ICONO PLACEHOLDER
-    myappid = 'ddxdxdxd'  # string arbitrario
+    myappid = 'ddxdxdxdxd'  # string arbitrario
     ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID(myappid)
-    window.iconbitmap(resource_path("comty.ico"))
+    window.iconbitmap("comty.ico")
 
     canvas = Canvas(
         window,
@@ -186,7 +211,7 @@ if get_variable_entorno() is True:
     canvas.place(x=0, y=0)
 
     button_image_1 = PhotoImage(
-        file=resource_path("button_1.png"))
+        file="button_1.png")
     boton_archivo = Button(
         image=button_image_1,
         borderwidth=0,
@@ -204,7 +229,7 @@ if get_variable_entorno() is True:
     )
 
     button_image_2 = PhotoImage(
-        file=resource_path("button_2.png"))
+        file="button_2.png")
     boton = Button(
         image=button_image_2,
         borderwidth=0,
@@ -222,7 +247,7 @@ if get_variable_entorno() is True:
     )
 
     entry_image_1 = PhotoImage(
-        file=resource_path("Rectangle1.png"))  # "entry_1.png"
+        file="Rectangle1.png")  # "entry_1.png"
     entry_bg_1 = canvas.create_image(
         358.5,  # 358.5
         145.5,  # 145.5
@@ -243,14 +268,14 @@ if get_variable_entorno() is True:
         width=471.0,  # 471
         height=153.0  # 153
     )
-    """
+
     image_image_1 = PhotoImage(
-        file=resource_path(update_image()))
+        file="placeholder.png")
     image_1 = canvas.create_image(
         140.0,
         379.0,
         image=image_image_1
-    )"""
+    )
     window.protocol("WM_DELETE_WINDOW", closing_cbk) #para terminar el programa cuando se cierra la ventana
     window.resizable(False, False)
     window.mainloop()
