@@ -134,7 +134,7 @@ def update_image(filepath):
         print(f"Error al actualizar la imagen: {e}")
         mostrar_error_temporal("Error No se pudo actualizar la imagen.")
 
-def mostrar_error_temporal(mensaje, duracion=3000):
+def mostrar_error_temporal(mensaje, duracion=3):
     """Muestra un mensaje de error que se cierra automáticamente."""
     # Crear una ventana emergente temporal
     error_ventana = Toplevel()
