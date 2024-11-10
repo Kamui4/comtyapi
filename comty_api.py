@@ -39,14 +39,14 @@ def obtener_texto():
     texto = message_entry.get("1.0", END)
     return texto.strip()  # Imprime el texto sin espacios en blanco al final
 #para empaquetar imagenes en exe
-"""
+
 def resource_path(relative_path): #sirve para integrar la carpeta images en el .exe
     try:
         base_path = sys._MEIPASS
     except Exception:
         base_path = os.path.abspath(".")
     return os.path.join(base_path, relative_path)
-"""
+
 #FUNCIONES DE LA API
 def json_variable_entorno():
     ventana = Tk()
@@ -196,7 +196,7 @@ if get_variable_entorno() is True:
     # ICONO PLACEHOLDER
     myappid = 'ddxdxdxdxd'  # string arbitrario
     ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID(myappid)
-    window.iconbitmap("images/comty.ico")
+    window.iconbitmap(resource_path("comty.ico"))
 
     canvas = Canvas(
         window,
@@ -211,7 +211,7 @@ if get_variable_entorno() is True:
     canvas.place(x=0, y=0)
 
     button_image_1 = PhotoImage(
-        file="images/button_1.png")
+        file=resource_path("button_1.png"))
     boton_archivo = Button(
         image=button_image_1,
         borderwidth=0,
@@ -229,7 +229,7 @@ if get_variable_entorno() is True:
     )
 
     button_image_2 = PhotoImage(
-        file="images/button_2.png")
+        file=resource_path("button_2.png"))
     boton = Button(
         image=button_image_2,
         borderwidth=0,
@@ -247,7 +247,7 @@ if get_variable_entorno() is True:
     )
 
     entry_image_1 = PhotoImage(
-        file="images/Rectangle1.png")  # "entry_1.png"
+        file=resource_path("Rectangle1.png"))  # "entry_1.png"
     entry_bg_1 = canvas.create_image(
         358.5,  # 358.5
         145.5,  # 145.5
@@ -270,7 +270,7 @@ if get_variable_entorno() is True:
     )
 
     image_image_1 = PhotoImage(
-        file="images/placeholder.png")
+        file=resource_path("placeholder.png"))
     image_1 = canvas.create_image(
         140.0,
         379.0,
