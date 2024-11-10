@@ -40,12 +40,7 @@ def obtener_texto():
 
 #FUNCIONES DE LA API
 def json_variable_entorno():
-    ventana = Tk()
-    ventana.withdraw()
-    archivopath = filedialog.askopenfilename(
-        title="Seleccione un archivo",
-        filetypes=(("Archivos de imagen", "*.json;"), ("Todos los archivos", "*.*"))
-    )
+    archivopath = seleccionar_archivo()
     if archivopath is None:
         return None
     else:
@@ -59,10 +54,8 @@ def json_variable_entorno():
 def crear_variable_entorno():
     variable = "COMTY_API"
     valor = "Server "+json_variable_entorno()
-    os.system(f'setx {variable} "{valor}"')
-    print("Se va a cerrar el programa...")
-    time.sleep(3)
-    sys.exit(0)
+    os.system(f'export {variable}="{valor}"')
+    return
 
 def get_variable_entorno():
     if os.getenv("COMTY_API"):
@@ -192,7 +185,9 @@ temporal = {'attachment':None}
 #Datos estados iniciales y datos
 attachmentResult = None
 estado_upload = {"boton_actual": "no"}
-if get_variable_entorno() is True:
+if get_variable_entorno() is False:
+    crear_variable_entorno()
+else:
     headers = {
         'Authorization': os.getenv("COMTY_API")
     }
@@ -262,7 +257,7 @@ if get_variable_entorno() is True:
     )
 
     message_entry = Text(window, height=10, width=40, fg='grey', bg="#353535", bd=0, highlightthickness=0,
-                       font=("Beiruti Regular", 16 * -1))
+                         font=("Beiruti Regular", 16 * -1))
     message_entry.insert("1.0", placeholder_text)
 
     message_entry.bind("<FocusIn>", on_focus_in)
@@ -283,8 +278,6 @@ if get_variable_entorno() is True:
         379.0,
         image=image_image_1
     )
-    window.protocol("WM_DELETE_WINDOW", closing_cbk) #para terminar el programa cuando se cierra la ventana
+    window.protocol("WM_DELETE_WINDOW", closing_cbk)  # para terminar el programa cuando se cierra la ventana
     window.resizable(False, False)
     window.mainloop()
-else:
-    crear_variable_entorno()
