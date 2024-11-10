@@ -53,7 +53,8 @@ def json_variable_entorno():
 def crear_variable_entorno():
     variable = "COMTY_API"
     valor = "Server "+json_variable_entorno()
-    os.system(f'export {variable}="{valor}"')
+    os.environ[variable] = valor  # Esto solo afecta al entorno actual de Python
+    print(f"Variable de entorno temporal {variable} establecida en el proceso actual.")
     return
 
 def get_variable_entorno():
