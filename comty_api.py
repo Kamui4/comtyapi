@@ -10,7 +10,7 @@ import subprocess
 import time
 # from tkinter import *
 # Explicit imports to satisfy Flake8
-from tkinter import Tk, Canvas, Text, Button, PhotoImage, END, messagebox,Label,Toplevel
+from tkinter import Tk, Canvas, Text, Button, PhotoImage, END, Label,messagebox
 
 OUTPUT_PATH = Path(__file__).parent
 ASSETS_PATH = OUTPUT_PATH / Path(r"C:\Users\sergi\PycharmProjects\build\assets\frame0")
@@ -132,9 +132,10 @@ def update_image(filepath):
 
     except Exception as e:
         print(f"Error al actualizar la imagen: {e}")
-        mostrar_error_temporal("Error No se pudo actualizar la imagen.")
+        messagebox.showerror("Error", "No se pudo actualizar la imagen.")
+        return
 
-def mostrar_error_temporal(mensaje, duracion=3):
+def mostrar_error_temporal(mensaje, duracion=3000):
     """Muestra un mensaje de error que se cierra automáticamente."""
     # Crear una ventana emergente temporal
     error_ventana = Toplevel()
