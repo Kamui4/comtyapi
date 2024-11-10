@@ -71,10 +71,10 @@ def upload_attachment():
 def activar_boton():
     url = "https://indev.comty.app/api/posts/new"
     #attachmentInput = attachment_entry.get().lower()  # Leer y normalizar el texto de attachment_entry
-    messageInput = message_entry.get()
+    messageInput = message_entry.get("1.0",END)
     try:
         data = {
-            "message": messageInput,
+            "message": messageInput.strip(),
             "attachments": [
                 temporal["attachment"]
             ]
@@ -94,7 +94,7 @@ def activar_boton():
 def image_boton():
     # Verificar si se desea subir un archivo
     if estado_upload["boton_actual"] == "si":
-        data['attachment'] = None
+        temporal['attachment'] = None
         estado_upload["boton_actual"] = "no"
         boton_upload.config(text=estado_upload["boton_actual"])
         boton_upload.config(background="Red")
