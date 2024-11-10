@@ -17,6 +17,10 @@ from tkinter import Tk, Canvas, Text, Button, PhotoImage, END, Label,filedialog
 OUTPUT_PATH = Path(__file__).parent
 ASSETS_PATH = OUTPUT_PATH / Path(r"C:\Users\sergi\PycharmProjects\build\assets\frame0")
 
+def closing_cbk(): #para terminar el programa cuando se cierra la ventana
+    # Shutdown procedure
+    window.quit()
+    window.destroy()
 #funcion de tkinter designer
 def relative_to_assets(path: str) -> Path:
     return ASSETS_PATH / Path(path)
@@ -247,6 +251,8 @@ if get_variable_entorno() is True:
         379.0,
         image=image_image_1
     )"""
-
+    window.protocol("WM_DELETE_WINDOW", closing_cbk) #para terminar el programa cuando se cierra la ventana
     window.resizable(False, False)
     window.mainloop()
+else:
+    crear_variable_entorno()
