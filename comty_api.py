@@ -88,6 +88,7 @@ def seleccionar_archivo():
 
     except Exception as e:
         print(f"Error al seleccionar archivo: {e}")
+        mostrar_error_temporal("Error No se pudo subir el archivo.")
         return None
 
 def upload_attachment():
