@@ -191,12 +191,12 @@ headers = {
 if get_variable_entorno() is True:
     window = Tk()
     window.title("Comty API")
-    window.geometry("700x700")
+    window.geometry("700x530")
     window.configure(bg="#232323")
     # ICONO PLACEHOLDER
     myappid = 'ddxdxdxdxd'  # string arbitrario
     ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID(myappid)
-    window.iconbitmap("comty.ico")
+    window.iconbitmap("images/comty.ico")
 
     canvas = Canvas(
         window,
@@ -211,7 +211,7 @@ if get_variable_entorno() is True:
     canvas.place(x=0, y=0)
 
     button_image_1 = PhotoImage(
-        file="button_1.png")
+        file="images/button_1.png")
     boton_archivo = Button(
         image=button_image_1,
         borderwidth=0,
@@ -229,7 +229,7 @@ if get_variable_entorno() is True:
     )
 
     button_image_2 = PhotoImage(
-        file="button_2.png")
+        file="images/button_2.png")
     boton = Button(
         image=button_image_2,
         borderwidth=0,
@@ -247,7 +247,7 @@ if get_variable_entorno() is True:
     )
 
     entry_image_1 = PhotoImage(
-        file="Rectangle1.png")  # "entry_1.png"
+        file="images/Rectangle1.png")  # "entry_1.png"
     entry_bg_1 = canvas.create_image(
         358.5,  # 358.5
         145.5,  # 145.5
@@ -270,7 +270,7 @@ if get_variable_entorno() is True:
     )
 
     image_image_1 = PhotoImage(
-        file="placeholder.png")
+        file="images/placeholder.png")
     image_1 = canvas.create_image(
         140.0,
         379.0,
