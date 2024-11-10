@@ -185,10 +185,10 @@ temporal = {'attachment':None}
 #Datos estados iniciales y datos
 attachmentResult = None
 estado_upload = {"boton_actual": "no"}
-headers = {
-    'Authorization': 'Server ' + os.getenv("COMTY_API")
-}
 if get_variable_entorno() is True:
+    headers = {
+        'Authorization': 'Server ' + os.getenv("COMTY_API")
+    }
     window = Tk()
     window.title("Comty API")
     window.geometry("700x700")
