@@ -3,14 +3,14 @@
 
 from pathlib import Path
 from PIL import ImageTk, Image
-import ctypes
 import requests
 import json
 import os
 import subprocess
+import time
 # from tkinter import *
 # Explicit imports to satisfy Flake8
-from tkinter import Tk, Canvas, Text, Button, PhotoImage, END, Label,messagebox
+from tkinter import Tk, Canvas, Text, Button, PhotoImage, END, messagebox,Label,Toplevel
 
 OUTPUT_PATH = Path(__file__).parent
 ASSETS_PATH = OUTPUT_PATH / Path(r"C:\Users\sergi\PycharmProjects\build\assets\frame0")
@@ -132,8 +132,22 @@ def update_image(filepath):
 
     except Exception as e:
         print(f"Error al actualizar la imagen: {e}")
-        messagebox.showerror("Error", "No se pudo actualizar la imagen.")
+        mostrar_error_temporal("Error No se pudo actualizar la imagen.")
 
+def mostrar_error_temporal(mensaje, duracion=3000):
+    """Muestra un mensaje de error que se cierra automáticamente."""
+    # Crear una ventana emergente temporal
+    error_ventana = Toplevel()
+    error_ventana.title("Error")
+    error_ventana.geometry("300x100")  # Tamaño de la ventana
+    error_ventana.configure(bg="white")
+
+    # Colocar el mensaje de error en la ventana
+    mensaje_label = Label(error_ventana, text=mensaje, fg="red", bg="white", font=("Arial", 12))
+    mensaje_label.pack(pady=20)  # Espaciado alrededor del texto
+
+    # Programar el cierre de la ventana después de la duración especificada (en milisegundos)
+    error_ventana.after(duracion, error_ventana.destroy)
 
 def boton_upload():
     url = "https://indev.comty.app/api/posts/new"
