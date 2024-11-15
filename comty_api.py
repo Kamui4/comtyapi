@@ -136,12 +136,18 @@ def boton_upload():
     url = "https://indev.comty.app/api/posts/new"
     #attachmentInput = attachment_entry.get().lower()  # Leer y normalizar el texto de attachment_entry
     try:
-        data = {
-            "message": obtener_texto(),
-            "attachments": [
-                temporal["attachment"]
-            ]
-        }
+        if estado_upload["boton_actual"] == "no":
+            data = {
+                "message": obtener_texto(),
+                "attachments": []
+            }
+        if estado_upload["boton_actual"] == "si":
+            data = {
+                "message": obtener_texto(),
+                "attachments": [
+                    temporal["attachment"]
+                ]
+            }
 
         response = requests.post(url, json=data, headers=headers)
         if response.status_code == 200:
@@ -157,9 +163,10 @@ def boton_upload():
 def image_boton():
     # Verificar si se desea subir un archivo
     if estado_upload["boton_actual"] == "si":
-        temporal['attachment'] = None
+        temporal.clear()
         estado_upload["boton_actual"] = "no"
         boton_archivo.config(text=estado_upload["boton_actual"])
+        update_image(resource_path("placeholder.png"))                    #esto se va a cambiar
         return
     elif estado_upload["boton_actual"] == "no":
         attachmentResult = upload_attachment()
@@ -178,7 +185,7 @@ def image_boton():
 # Configurar y verificar la variable de entorno
 get_variable_entorno()
 placeholder_text = "Escribe aquí..."  # Texto del placeholder
-temporal = {'attachment':None}
+temporal = {}
 #Datos estados iniciales y datos
 attachmentResult = None
 estado_upload = {"boton_actual": "no"}
