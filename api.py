@@ -25,7 +25,7 @@ def create_post(message, attachment):
         data = {
             "message": message,
         }
-    elif attachment is not None:
+    else:
         data = {
             "message": message,
             "attachments": [attachment]
