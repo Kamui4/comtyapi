@@ -3,3 +3,4 @@ build/dist/*
 *.spec
 build/*.spec
 output/*
+pruebagtk.py

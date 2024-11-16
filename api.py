@@ -62,6 +62,3 @@ def get_post():
         print(data)
     else:
         print(f"Error: {response.status_code}")
-
-
-get_post()
